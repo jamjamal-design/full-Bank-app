@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+require('dotenv').config();
 
 // Create transporter
 const transporter = nodemailer.createTransport({
@@ -43,8 +44,8 @@ const sendWelcomeEmail = async (email, firstName, accountNumber) => {
     try {
         await transporter.sendMail(mailOptions);
     } catch (error) {
-        // Error sending welcome email
-    }
+    console.error('Error sending welcome email:', error);
+}
 };
 
 const sendTransactionEmail = async (email, name, type, amount, description, balance) => {
@@ -73,7 +74,7 @@ const sendTransactionEmail = async (email, name, type, amount, description, bala
     try {
         await transporter.sendMail(mailOptions);
     } catch (error) {
-        // Error sending transaction email
+        console.error('Error sending transaction email:', error);
     }
 };
 
