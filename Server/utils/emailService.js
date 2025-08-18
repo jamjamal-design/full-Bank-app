@@ -13,7 +13,7 @@ const sendWelcomeEmail = async (email, firstName, accountNumber) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Welcome to SecureBank - Account Created Successfully!',
+        subject: 'Welcome to JamalSecureBank - Account Created Successfully!',
         html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
                 <h2 style="color: #007bff; text-align: center;">Welcome to SecureBank!</h2>

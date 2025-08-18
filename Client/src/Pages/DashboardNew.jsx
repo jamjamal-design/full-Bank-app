@@ -65,39 +65,39 @@ const Dashboard = () => {
   }
 
   return (
-    <div className={`min-vh-100 d-flex ${isDarkMode ? 'bg-dark' : 'bg-light'}`} style={{ minHeight: '100vh' }}>
-      {/* Sidebar */}
-      <aside className={`d-none d-md-flex flex-column align-items-center py-4 px-2 ${isDarkMode ? 'bg-dark border-end border-secondary' : 'bg-white border-end'} shadow-sm`} style={{ width: 90 }}>
-        <img src={jamalBank} alt="Jamal Bank Logo" style={{ width: 48, height: 48, borderRadius: '50%', marginBottom: 32 }} />
-        <button className="btn btn-link mb-4" onClick={() => navigate('/dashboard')} title="Dashboard">
-          <i className="fas fa-home fa-lg" style={{ color: '#007bff' }}></i>
-        </button>
-        <button className="btn btn-link mb-4" onClick={() => navigate('/cards')} title="Cards">
-          <i className="fas fa-credit-card fa-lg" style={{ color: '#dc3545' }}></i>
-        </button>
-        <button className="btn btn-link mb-4" onClick={() => navigate('/savings')} title="Savings">
-          <i className="fas fa-piggy-bank fa-lg" style={{ color: '#28a745' }}></i>
-        </button>
-        <button className="btn btn-link mb-4" onClick={() => navigate('/transactions')} title="Transactions">
-          <i className="fas fa-list fa-lg" style={{ color: '#6f42c1' }}></i>
-        </button>
-        <button className="btn btn-link mb-4" onClick={() => navigate('/me')} title="Profile">
-          <i className="fas fa-user fa-lg" style={{ color: '#343a40' }}></i>
-        </button>
-        <button className="btn btn-link mt-auto" onClick={logout} title="Logout">
-          <i className="fas fa-sign-out-alt fa-lg" style={{ color: '#adb5bd' }}></i>
-        </button>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-grow-1 px-0 px-md-4 py-4">
-        {/* Header: Greeting, Theme Toggle */}
-        <div className="d-flex justify-content-between align-items-center mb-4 gap-2 flex-wrap">
-          <div>
-            <h4 className="fw-bold mb-1">Good day, {user.firstName} {user.lastName}</h4>
-            <div className="text-muted small">Welcome back!</div>
-          </div>
-          <div className="d-flex gap-2 align-items-center">
+ // ...existing code...
+    <div
+      className={`min-vh-100 d-flex flex-column ${isDarkMode ? 'bg-gradient-dark' : 'bg-gradient-light'}`}
+      style={{
+        minHeight: '100vh',
+        background: isDarkMode
+          ? 'linear-gradient(135deg, #232526 0%, #414345 100%)'
+          : 'linear-gradient(135deg, #e0f7fa 0%, #fff 100%)',
+        transition: 'background 0.5s'
+      }}
+    >
+      {/* Top Navigation Bar */}
+      <nav
+        className={`navbar navbar-expand-md ${isDarkMode ? 'navbar-dark bg-dark' : 'navbar-light bg-white'} shadow`}
+        style={{
+          animation: 'slideDown 0.7s cubic-bezier(.23,1.01,.32,1) both'
+        }}
+      >
+        <div className="container-fluid">
+          <span className="navbar-brand d-flex align-items-center gap-2">
+            <img
+              src={jamalBank}
+              alt="Jamal Bank Logo"
+              style={{
+                width: 44,
+                height: 44,
+                borderRadius: '50%',
+                boxShadow: '0 2px 8px #00bcd433'
+              }}
+            />
+            <span className="fw-bold" style={{ color: isDarkMode ? '#43e97b' : '#00bcd4' }}>Jamal Bank</span>
+          </span>
+          <div className="d-flex align-items-center gap-2 ms-auto">
             <button className="btn btn-outline-primary" onClick={toggleTheme} title={isDarkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}>
               <i className={`fas ${isDarkMode ? 'fa-sun' : 'fa-moon'} fa-lg`}></i>
             </button>
@@ -106,147 +106,234 @@ const Dashboard = () => {
             </button>
           </div>
         </div>
+      </nav>
 
-        {/* Balance Card */}
-        <div className="mb-4">
-          <div className={`shadow-lg rounded-5 p-4 position-relative overflow-hidden ${isDarkMode ? 'bg-gradient-dark text-light' : 'bg-white'}`} style={{ minHeight: 180 }}>
-            <div className="position-absolute" style={{ right: -60, top: -60, width: 200, height: 200, background: 'linear-gradient(135deg, #007bff33 60%, #fff0 100%)', borderRadius: '50%' }}></div>
-            <div className="position-relative">
-              <div className="d-flex align-items-center mb-2">
-                <span className="me-2 text-muted">Total Balance</span>
-                <button className="btn btn-sm btn-outline-secondary" onClick={toggleBalanceVisibility}>
-                  <i className={`fas ${isBalanceVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>
-                </button>
+      <div className="container-fluid flex-grow-1 py-4">
+        {/* Greeting & Balance */}
+        <div className="row mb-4">
+          <div className="col-12 col-md-8 mb-3 mb-md-0">
+            <div
+              className={`p-4 rounded-5 shadow-lg d-flex flex-column flex-md-row align-items-center justify-content-between ${isDarkMode ? 'bg-dark text-light' : 'bg-white'}`}
+              style={{
+                background: isDarkMode
+                  ? 'linear-gradient(90deg, #232526 0%, #43e97b 100%)'
+                  : 'linear-gradient(90deg, #e0f7fa 0%, #43e97b 100%)',
+                animation: 'fadeInUp 0.8s cubic-bezier(.23,1.01,.32,1) both'
+              }}
+            >
+              <div>
+                <h4 className="fw-bold mb-1" style={{ color: isDarkMode ? '#43e97b' : '#00bcd4' }}>
+                  Hello, {user.firstName} {user.lastName}
+                </h4>
+                <div className="text-muted small">Welcome back!</div>
+                <div className="mt-3">
+                  <span className="me-2 text-muted">Total Balance</span>
+                  <button className="btn btn-sm btn-outline-secondary" onClick={toggleBalanceVisibility}>
+                    <i className={`fas ${isBalanceVisible ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                  </button>
+                </div>
+                <h2 className="fw-bold mt-2" style={{ color: isDarkMode ? '#fff' : '#009688', letterSpacing: 1 }}>
+                  {isBalanceVisible ? formatCurrency(user.accountBalance) : '₦****'}
+                </h2>
+                <div className="mt-2 text-muted">Acct: <span className="fw-semibold">{user.accountNumber}</span></div>
               </div>
-              <h1 className="fw-bold mb-0" style={{ fontSize: '2.5rem' }}>{isBalanceVisible ? formatCurrency(user.accountBalance) : '₦****'}</h1>
-              <div className="mt-2 text-muted">Account Number: <span className="fw-semibold">{user.accountNumber}</span></div>
+              <div className="d-none d-md-block">
+                <img
+                  src={jamalBank}
+                  alt="Bank"
+                  style={{
+                    width: 90,
+                    height: 90,
+                    borderRadius: '50%',
+                    boxShadow: '0 2px 16px #43e97b33',
+                    animation: 'bounceIn 0.7s'
+                  }}
+                />
+              </div>
+            </div>
+          </div>
+          {/* Quick Actions as animated grid */}
+          <div className="col-12 col-md-4">
+            <div
+              className={`p-3 rounded-5 shadow-lg h-100 d-flex flex-md-column flex-row gap-2 justify-content-around align-items-center ${isDarkMode ? 'bg-dark text-light' : 'bg-white'}`}
+              style={{
+                background: isDarkMode
+                  ? 'linear-gradient(135deg, #232526 0%, #43e97b 100%)'
+                  : 'linear-gradient(135deg, #e0f7fa 0%, #43e97b 100%)',
+                animation: 'fadeInRight 0.8s cubic-bezier(.23,1.01,.32,1) both'
+              }}
+            >
+              {[
+                { label: 'Transfer', icon: 'fa-exchange-alt', color: 'primary', path: '/transfer' },
+                { label: 'Fund', icon: 'fa-wallet', color: 'success', path: '/fund-account' },
+                { label: 'Withdraw', icon: 'fa-money-bill-wave', color: 'warning', path: '/withdraw' },
+                { label: 'Airtime', icon: 'fa-mobile-alt', color: 'info', path: '/airtime-data' },
+              ].map((action) => {
+                const isActive = location.pathname === action.path || (action.path === '/transfer' && location.pathname === '/dashboard');
+                return (
+                  <button
+                    key={action.label}
+                    className={`btn btn-${action.color} d-flex flex-column align-items-center mb-md-2 ${isActive ? 'shadow-lg' : ''}`}
+                    style={{
+                      minWidth: 70,
+                      background: isActive
+                        ? 'linear-gradient(90deg, #43e97b 0%, #38f9d7 100%)'
+                        : undefined,
+                      color: isActive ? '#fff' : undefined,
+                      transition: 'background 0.2s, color 0.2s'
+                    }}
+                    onClick={() => navigate(action.path)}
+                  >
+                    <i className={`fas ${action.icon} fa-lg mb-1`}></i>
+                    <span className="small">{action.label}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>
 
-        {/* Quick Actions Grid */}
+        {/* Cards, Airtime/Data, Savings summaries in horizontal cards */}
         <div className="row g-3 mb-4">
-          {/* Quick Actions with active highlight */}
-          {[
-            { label: 'Transfer', icon: 'fa-exchange-alt', color: 'primary', path: '/transfer' },
-            { label: 'Fund', icon: 'fa-wallet', color: 'success', path: '/fund-account' },
-            { label: 'Withdraw', icon: 'fa-money-bill-wave', color: 'warning', path: '/withdraw' },
-            { label: 'Airtime/Data', icon: 'fa-mobile-alt', color: 'info', path: '/airtime-data' },
-            { label: 'Bills', icon: 'fa-file-invoice-dollar', color: 'secondary', path: '/bill-payments' },
-            { label: 'Cards', icon: 'fa-credit-card', color: 'danger', path: '/cards' },
-            { label: 'Transactions', icon: 'fa-list', color: 'dark', path: '/transactions' },
-          ].map((action, idx) => {
-            const isActive = location.pathname === action.path || (action.path === '/transfer' && location.pathname === '/dashboard');
-            return (
-              <div className="col-6 col-md-2" key={action.label}>
-                <div
-                  className={`rounded-4 shadow-sm d-flex flex-column align-items-center py-3 h-100 ${isActive ? `bg-${action.color} text-white` : 'bg-white'}`}
-                  style={{ cursor: 'pointer', transition: 'background 0.2s' }}
-                  onClick={() => navigate(action.path)}
-                >
-                  <i className={`fas ${action.icon} fa-2x mb-2 ${isActive ? '' : `text-${action.color}`}`}></i>
-                  <div className={`fw-semibold ${isActive ? '' : 'text-dark'}`}>{action.label}</div>
+          <div className="col-md-4">
+            <div className="card h-100 shadow-lg border-0" style={{ animation: 'fadeInUp 1s 0.1s both' }}>
+              <div className="card-body">
+                <Cards summaryOnly />
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="card h-100 shadow-lg border-0" style={{ animation: 'fadeInUp 1s 0.2s both' }}>
+              <div className="card-body">
+                <AirtimeData quickPurchaseOnly />
+              </div>
+            </div>
+          </div>
+          <div className="col-md-4">
+            <div className="card h-100 shadow-lg border-0" style={{ animation: 'fadeInUp 1s 0.3s both' }}>
+              <div className="card-body">
+                <Savings summaryOnly />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Analytics & Notifications in a single row */}
+        <div className="row g-3 mb-4">
+          <div className="col-md-7">
+            <div className="card h-100 shadow-lg border-0" style={{ animation: 'fadeInLeft 1s 0.2s both' }}>
+              <div className="card-body">
+                <h6 className="fw-bold mb-3" style={{ color: '#43e97b' }}>Analytics</h6>
+                <div className="row">
+                  <div className="col-6">
+                    <div className="text-muted">Total Spent</div>
+                    <div className="fw-semibold" style={{ color: '#e53935' }}>{formatCurrency(analytics.totalSpent)}</div>
+                  </div>
+                  <div className="col-6">
+                    <div className="text-muted">Total Received</div>
+                    <div className="fw-semibold" style={{ color: '#43e97b' }}>{formatCurrency(analytics.totalReceived)}</div>
+                  </div>
                 </div>
               </div>
-            );
-          })}
-        </div>
-
-        {/* Cards, Airtime/Data, Savings summaries */}
-        <div className="row g-3 mb-4">
-          <div className="col-md-4">
-            <Cards summaryOnly />
-          </div>
-          <div className="col-md-4">
-            <AirtimeData quickPurchaseOnly />
-          </div>
-          <div className="col-md-4">
-            <Savings summaryOnly />
-          </div>
-        </div>
-
-
-        {/* Analytics & Notifications */}
-        <div className="row g-3 mb-4">
-          <div className="col-md-6">
-            <div className="bg-white rounded-4 shadow-sm p-4 h-100">
-              <h6 className="fw-bold mb-3">Analytics</h6>
-              <div className="d-flex justify-content-between align-items-center mb-2">
-                <span className="text-muted">Total Spent</span>
-                <span className="fw-semibold text-danger">{formatCurrency(analytics.totalSpent)}</span>
-              </div>
-              <div className="d-flex justify-content-between align-items-center">
-                <span className="text-muted">Total Received</span>
-                <span className="fw-semibold text-success">{formatCurrency(analytics.totalReceived)}</span>
-              </div>
             </div>
           </div>
-          <div className="col-md-6">
-            <div className="bg-white rounded-4 shadow-sm p-4 h-100">
-              <h6 className="fw-bold mb-3">Notifications</h6>
-              {notifications.length === 0 ? (
-                <div className="text-muted small">No notifications</div>
-              ) : (
-                <ul className="list-unstyled mb-0" style={{ maxHeight: 120, overflowY: 'auto' }}>
-                  {notifications.slice(0, 4).map((notif, idx) => (
-                    <li key={idx} className="mb-2 d-flex align-items-start">
-                      <i className="fas fa-bell text-warning me-2 mt-1"></i>
-                      <div>
-                        <div className="fw-semibold">{notif.title || 'Notification'}</div>
-                        <div className="small text-muted">{notif.message || notif.body}</div>
-                        <div className="small text-secondary">{notif.date ? new Date(notif.date).toLocaleString() : ''}</div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Transactions */}
-        <div className="mb-4">
-          <div className="bg-white rounded-4 shadow-sm p-4">
-            <h6 className="fw-bold mb-3">Recent Transactions</h6>
-            {isLoading ? (
-              <div className="text-center py-4"><div className="spinner-border text-primary" /></div>
-            ) : transactions.length === 0 ? (
-              <div className="text-muted small">No transactions yet</div>
-            ) : (
-              <div style={{ maxHeight: 220, overflowY: 'auto' }}>
-                <table className="table table-borderless align-middle mb-0">
-                  <tbody>
-                    {transactions.slice(0, 6).map((tx, idx) => (
-                      <tr key={idx}>
-                        <td><i className={`fas ${tx.type === 'debit' ? 'fa-arrow-up text-danger' : 'fa-arrow-down text-success'}`}></i></td>
-                        <td>{tx.description || 'Transaction'}</td>
-                        <td>{tx.date ? new Date(tx.date).toLocaleDateString() : ''}</td>
-                        <td className={`fw-bold ${tx.type === 'debit' ? 'text-danger' : 'text-success'}`}>{tx.type === 'debit' ? '-' : '+'}{formatCurrency(tx.amount)}</td>
-                      </tr>
+          <div className="col-md-5">
+            <div className="card h-100 shadow-lg border-0" style={{ animation: 'fadeInRight 1s 0.2s both' }}>
+              <div className="card-body">
+                <h6 className="fw-bold mb-3" style={{ color: '#00bcd4' }}>Notifications</h6>
+                {notifications.length === 0 ? (
+                  <div className="text-muted small">No notifications</div>
+                ) : (
+                  <ul className="list-unstyled mb-0" style={{ maxHeight: 120, overflowY: 'auto' }}>
+                    {notifications.slice(0, 4).map((notif, idx) => (
+                      <li key={idx} className="mb-2 d-flex align-items-start">
+                        <i className="fas fa-bell" style={{ color: '#ffc107', marginRight: 8, marginTop: 4 }}></i>
+                        <div>
+                          <div className="fw-semibold">{notif.title || 'Notification'}</div>
+                          <div className="small text-muted">{notif.message || notif.body}</div>
+                          <div className="small text-secondary">{notif.date ? new Date(notif.date).toLocaleString() : ''}</div>
+                        </div>
+                      </li>
                     ))}
-                  </tbody>
-                </table>
+                  </ul>
+                )}
               </div>
-            )}
+            </div>
           </div>
         </div>
 
-        {/* More Features Section */}
-        <div className="mb-4">
-          <div className="bg-white rounded-4 shadow-sm p-4">
-            <h6 className="fw-bold mb-3">More Features</h6>
-            <div className="d-flex flex-wrap gap-3">
-              <button className="btn btn-outline-primary rounded-pill px-4" onClick={() => navigate('/loans')}>Loans</button>
-              <button className="btn btn-outline-success rounded-pill px-4" onClick={() => navigate('/support')}>Support</button>
-              <button className="btn btn-outline-warning rounded-pill px-4" onClick={() => navigate('/me')}>Profile & Settings</button>
-              <button className="btn btn-outline-info rounded-pill px-4" onClick={() => navigate('/notifications')}>All Notifications</button>
+        {/* Recent Transactions in a card */}
+        <div className="row mb-4">
+          <div className="col-12">
+            <div className="card shadow-lg border-0" style={{ animation: 'fadeInUp 1s 0.4s both' }}>
+              <div className="card-body">
+                <h6 className="fw-bold mb-3" style={{ color: '#009688' }}>Recent Transactions</h6>
+                {isLoading ? (
+                  <div className="text-center py-4"><div className="spinner-border text-primary" /></div>
+                ) : transactions.length === 0 ? (
+                  <div className="text-muted small">No transactions yet</div>
+                ) : (
+                  <div style={{ maxHeight: 220, overflowY: 'auto' }}>
+                    <table className="table table-borderless align-middle mb-0">
+                      <tbody>
+                        {transactions.slice(0, 6).map((tx, idx) => (
+                          <tr key={idx}>
+                            <td><i className={`fas ${tx.type === 'debit' ? 'fa-arrow-up' : 'fa-arrow-down'}`} style={{ color: tx.type === 'debit' ? '#e53935' : '#43e97b' }}></i></td>
+                            <td>{tx.description || 'Transaction'}</td>
+                            <td>{tx.date ? new Date(tx.date).toLocaleDateString() : ''}</td>
+                            <td className="fw-bold" style={{ color: tx.type === 'debit' ? '#e53935' : '#43e97b' }}>
+                              {tx.type === 'debit' ? '-' : '+'}{formatCurrency(tx.amount)}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* More Features as icon grid */}
+        <div className="row mb-4">
+          <div className="col-12">
+            <div className="card shadow-lg border-0" style={{ animation: 'fadeInUp 1s 0.5s both' }}>
+              <div className="card-body">
+                <h6 className="fw-bold mb-3" style={{ color: '#43e97b' }}>More Features</h6>
+                <div className="row text-center g-3">
+                  <div className="col-6 col-md-3">
+                    <button className="btn btn-outline-primary w-100 py-3" style={{ borderRadius: 20 }} onClick={() => navigate('/loans')}>
+                      <i className="fas fa-hand-holding-usd fa-lg mb-1"></i>
+                      <div>Loans</div>
+                    </button>
+                  </div>
+                  <div className="col-6 col-md-3">
+                    <button className="btn btn-outline-success w-100 py-3" style={{ borderRadius: 20 }} onClick={() => navigate('/support')}>
+                      <i className="fas fa-headset fa-lg mb-1"></i>
+                      <div>Support</div>
+                    </button>
+                  </div>
+                  <div className="col-6 col-md-3">
+                    <button className="btn btn-outline-warning w-100 py-3" style={{ borderRadius: 20 }} onClick={() => navigate('/me')}>
+                      <i className="fas fa-user-cog fa-lg mb-1"></i>
+                      <div>Profile</div>
+                    </button>
+                  </div>
+                  <div className="col-6 col-md-3">
+                    <button className="btn btn-outline-info w-100 py-3" style={{ borderRadius: 20 }} onClick={() => navigate('/notifications')}>
+                      <i className="fas fa-bell fa-lg mb-1"></i>
+                      <div>Notifications</div>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Navigation for Mobile */}
         <div className="fixed-bottom d-md-none">
-          {/* Pass active prop to BottomNav for green highlight */}
           {(() => {
             let active = 'home';
             if (location.pathname.startsWith('/finances')) active = 'finances';
@@ -256,9 +343,34 @@ const Dashboard = () => {
             return <BottomNav active={active} />;
           })()}
         </div>
-      </main>
+      </div>
+      {/* Animations */}
+      <style>{`
+        @keyframes fadeInUp {
+          0% { opacity: 0; transform: translateY(40px);}
+          100% { opacity: 1; transform: translateY(0);}
+        }
+        @keyframes fadeInRight {
+          0% { opacity: 0; transform: translateX(40px);}
+          100% { opacity: 1; transform: translateX(0);}
+        }
+        @keyframes fadeInLeft {
+          0% { opacity: 0; transform: translateX(-40px);}
+          100% { opacity: 1; transform: translateX(0);}
+        }
+        @keyframes bounceIn {
+          0% { transform: scale(0.7);}
+          60% { transform: scale(1.1);}
+          100% { transform: scale(1);}
+        }
+        @keyframes slideDown {
+          0% { opacity: 0; transform: translateY(-40px);}
+          100% { opacity: 1; transform: translateY(0);}
+        }
+      `}</style>
     </div>
   );
-}
+// ...existing code...
+};
 
 export default Dashboard;
