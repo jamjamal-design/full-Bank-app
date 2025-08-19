@@ -76,121 +76,199 @@ const Signup = () => {
   };
 
   return (
-    <div className="container-fluid min-vh-100 d-flex align-items-center justify-content-center" style={{background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'}}>
-      <div className="row w-100 justify-content-center">
-        <div className="col-md-6 col-lg-4">
-          <div className="text-center mb-3">
-            <img src={jamalBank} alt="Jamal Bank Logo" style={{ width: 80, borderRadius: '50%' }} />
+    <div
+      className="signup-bg d-flex align-items-center justify-content-center min-vh-100"
+      style={{
+        background: "radial-gradient(circle at 20% 30%, #a18cd1 0%, #fbc2eb 100%)",
+        animation: "bgMove 10s linear infinite alternate"
+      }}
+    >
+      <style>
+        {`
+          @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+          }
+          .signup-card {
+            animation: fadeInUp 1s cubic-bezier(.23,1.01,.32,1) both;
+            background: rgba(255,255,255,0.95);
+            border-radius: 2rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255,255,255,0.18);
+          }
+          @keyframes fadeInUp {
+            0% {
+              opacity: 0;
+              transform: translateY(40px) scale(0.96);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
+          }
+          .logo-bounce {
+            animation: bounce 1.2s infinite alternate;
+          }
+          @keyframes bounce {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-12px);}
+          }
+          .form-floating label {
+            color: #7b2ff2;
+          }
+          .btn-animated {
+            transition: background 0.3s, transform 0.2s;
+          }
+          .btn-animated:active {
+            transform: scale(0.97);
+            background: linear-gradient(90deg, #7b2ff2 0%, #fbc2eb 100%);
+          }
+        `}
+      </style>
+      <div className="signup-card p-4" style={{ width: 380, maxWidth: "95%" }}>
+        <div className="text-center mb-4">
+          <img
+            src={jamalBank}
+            alt="Jamal Bank Logo"
+            className="logo-bounce"
+            style={{
+              width: 70,
+              borderRadius: "50%",
+              boxShadow: "0 4px 16px rgba(123,47,242,0.15)"
+            }}
+          />
+          <h2 className="mt-3 mb-1" style={{ fontWeight: 700, color: "#7b2ff2" }}>
+            JamalSecureBank
+          </h2>
+          <div style={{ color: "#764ba2", fontWeight: 500, fontSize: 18 }}>
+            Create Your Account
           </div>
-          <div className="card shadow-lg border-0 rounded-lg">
-            <div className="card-header bg-primary text-white text-center py-4">
-              <h3 className="mb-0">
-                <i className="fas fa-university me-2"></i>
-                SecureBank
-              </h3>
-              <p className="mb-0">Create Your Account</p>
-            </div>
-            <div className="card-body p-4">
-              {message && (
-                <div className={`alert ${message.includes('successfully') ? 'alert-success' : 'alert-danger'} alert-dismissible fade show`} role="alert">
-                  {message}
+        </div>
+        {message && (
+          <div
+            className={`alert ${message.includes("successfully") ? "alert-success" : "alert-danger"} alert-dismissible fade show`}
+            role="alert"
+            style={{ animation: "fadeInUp 0.6s" }}
+          >
+            {message}
+          </div>
+        )}
+        <Formik
+          initialValues={{
+            firstName: "",
+            lastName: "",
+            email: "",
+            password: "",
+            confirmPassword: ""
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isValid, dirty }) => (
+            <Form>
+              <div className="row g-3 mb-2">
+                <div className="col-6">
+                  <div className="form-floating">
+                    <Field
+                      type="text"
+                      name="firstName"
+                      className="form-control"
+                      id="firstName"
+                      placeholder="First Name"
+                    />
+                    <label htmlFor="firstName">First Name</label>
+                  </div>
+                  <ErrorMessage name="firstName" component="div" className="text-danger small mt-1" />
                 </div>
-              )}
-              
-              <Formik
-                initialValues={{
-                  firstName: '',
-                  lastName: '',
-                  email: '',
-                  password: '',
-                  confirmPassword: ''
+                <div className="col-6">
+                  <div className="form-floating">
+                    <Field
+                      type="text"
+                      name="lastName"
+                      className="form-control"
+                      id="lastName"
+                      placeholder="Last Name"
+                    />
+                    <label htmlFor="lastName">Last Name</label>
+                  </div>
+                  <ErrorMessage name="lastName" component="div" className="text-danger small mt-1" />
+                </div>
+              </div>
+              <div className="form-floating mb-2">
+                <Field
+                  type="email"
+                  name="email"
+                  className="form-control"
+                  id="email"
+                  placeholder="Email Address"
+                />
+                <label htmlFor="email">Email Address</label>
+                <ErrorMessage name="email" component="div" className="text-danger small mt-1" />
+              </div>
+              <div className="form-floating mb-2">
+                <Field
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="Password"
+                />
+                <label htmlFor="password">Password</label>
+                <ErrorMessage name="password" component="div" className="text-danger small mt-1" />
+              </div>
+              <div className="form-floating mb-3">
+                <Field
+                  type="password"
+                  name="confirmPassword"
+                  className="form-control"
+                  id="confirmPassword"
+                  placeholder="Confirm Password"
+                />
+                <label htmlFor="confirmPassword">Confirm Password</label>
+                <ErrorMessage name="confirmPassword" component="div" className="text-danger small mt-1" />
+              </div>
+              <button
+                type="submit"
+                className="btn btn-animated btn-gradient w-100 py-2 mb-2"
+                style={{
+                  background: "linear-gradient(90deg, #7b2ff2 0%, #fbc2eb 100%)",
+                  color: "#fff",
+                  fontWeight: 600,
+                  fontSize: 18,
+                  letterSpacing: 1
                 }}
-                validationSchema={validationSchema}
-                onSubmit={handleSubmit}
+                disabled={!isValid || !dirty || isLoading}
               >
-                {({ isValid, dirty }) => (
-                  <Form>
-                    <div className="row mb-3">
-                      <div className="col-md-6">
-                        <label htmlFor="firstName" className="form-label">First Name</label>
-                        <Field
-                          type="text"
-                          name="firstName"
-                          className="form-control"
-                          placeholder="Enter first name"
-                        />
-                        <ErrorMessage name="firstName" component="div" className="text-danger small mt-1" />
-                      </div>
-                      <div className="col-md-6">
-                        <label htmlFor="lastName" className="form-label">Last Name</label>
-                        <Field
-                          type="text"
-                          name="lastName"
-                          className="form-control"
-                          placeholder="Enter last name"
-                        />
-                        <ErrorMessage name="lastName" component="div" className="text-danger small mt-1" />
-                      </div>
-                    </div>
-
-                    <div className="mb-3">
-                      <label htmlFor="email" className="form-label">Email Address</label>
-                      <Field
-                        type="email"
-                        name="email"
-                        className="form-control"
-                        placeholder="Enter email address"
-                      />
-                      <ErrorMessage name="email" component="div" className="text-danger small mt-1" />
-                    </div>
-
-                    <div className="mb-3">
-                      <label htmlFor="password" className="form-label">Password</label>
-                      <Field
-                        type="password"
-                        name="password"
-                        className="form-control"
-                        placeholder="Enter password"
-                      />
-                      <ErrorMessage name="password" component="div" className="text-danger small mt-1" />
-                    </div>
-
-                    <div className="mb-3">
-                      <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-                      <Field
-                        type="password"
-                        name="confirmPassword"
-                        className="form-control"
-                        placeholder="Confirm password"
-                      />
-                      <ErrorMessage name="confirmPassword" component="div" className="text-danger small mt-1" />
-                    </div>
-
-                    <button
-                      type="submit"
-                      className="btn btn-primary w-100 py-2"
-                      disabled={!isValid || !dirty || isLoading}
-                    >
-                      {isLoading ? (
-                        <>
-                          <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                          Creating Account...
-                        </>
-                      ) : (
-                        'Create Account'
-                      )}
-                    </button>
-                  </Form>
+                {isLoading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Creating Account...
+                  </>
+                ) : (
+                  "Create Account"
                 )}
-              </Formik>
-            </div>
-            <div className="card-footer text-center py-3">
-              <small className="text-muted">
-                Already have an account? 
-                <a href="/signin" className="text-primary text-decoration-none ms-1">Sign In</a>
-              </small>
-            </div>
-          </div>
+              </button>
+            </Form>
+          )}
+        </Formik>
+        <div className="text-center mt-3">
+          <small className="text-muted">
+            Already have an account?
+            <a
+              href="/signin"
+              className="text-decoration-none ms-1"
+              style={{
+                color: "#7b2ff2",
+                fontWeight: 600,
+                transition: "color 0.2s"
+              }}
+              onMouseOver={e => (e.target.style.color = "#764ba2")}
+              onMouseOut={e => (e.target.style.color = "#7b2ff2")}
+            >
+              Sign In
+            </a>
+          </small>
         </div>
       </div>
     </div>
