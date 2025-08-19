@@ -46,7 +46,7 @@ function App() {
       <AnimatedSplash show={showSplash} key={splashKey} />
       <Routes>
         <Route path="/" element={<Navigate to="/signin" replace />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Navigate to="/signup" replace />} />
         <Route path="/signin" element={<Signin />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/transfer" element={<Transfer />} />

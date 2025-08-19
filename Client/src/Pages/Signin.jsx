@@ -81,180 +81,199 @@ const Signin = () => {
     return <SloganSplash />;
   }
   return (
-    <div
-      className="signin-bg d-flex align-items-center justify-content-center min-vh-100"
+        <div
+      className="signup-bg d-flex align-items-center justify-content-center min-vh-100"
       style={{
-        background: 'radial-gradient(circle at 20% 30%, #a18cd1 0%, #fbc2eb 100%)',
-        animation: 'bgFadeIn 1.2s ease'
+        background: "radial-gradient(circle at 20% 30%, #a18cd1 0%, #fbc2eb 100%)",
+        animation: "bgMove 10s linear infinite alternate"
       }}
     >
       <style>
         {`
-          @keyframes bgFadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+          @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
           }
-          @keyframes cardSlideUp {
-            from { transform: translateY(60px) scale(0.95); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-          }
-          @keyframes logoPop {
-            0% { transform: scale(0.7) rotate(-10deg); opacity: 0; }
-            70% { transform: scale(1.1) rotate(5deg); opacity: 1; }
-            100% { transform: scale(1) rotate(0deg); }
-          }
-          .signin-card {
-            animation: cardSlideUp 0.9s cubic-bezier(.68,-0.55,.27,1.55);
+          .signup-card {
+            animation: fadeInUp 1s cubic-bezier(.23,1.01,.32,1) both;
+            background: rgba(255,255,255,0.95);
             border-radius: 2rem;
             box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.25);
-            background: rgba(255,255,255,0.85);
-            backdrop-filter: blur(7px);
+            backdrop-filter: blur(6px);
             border: 1px solid rgba(255,255,255,0.18);
           }
-          .signin-logo {
-            animation: logoPop 1s cubic-bezier(.68,-0.55,.27,1.55);
-            box-shadow: 0 4px 16px 0 rgba(120, 80, 220, 0.15);
-            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
-            padding: 0.5rem;
-            border-radius: 50%;
-            margin-bottom: 0.5rem;
+          @keyframes fadeInUp {
+            0% {
+              opacity: 0;
+              transform: translateY(40px) scale(0.96);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) scale(1);
+            }
           }
-          .signin-btn-animated {
-            transition: transform 0.15s, box-shadow 0.15s;
+          .logo-bounce {
+            animation: bounce 1.2s infinite alternate;
           }
-          .signin-btn-animated:active {
+          @keyframes bounce {
+            0% { transform: translateY(0);}
+            100% { transform: translateY(-12px);}
+          }
+          .form-floating label {
+            color: #7b2ff2;
+          }
+          .btn-animated {
+            transition: background 0.3s, transform 0.2s;
+          }
+          .btn-animated:active {
             transform: scale(0.97);
-            box-shadow: 0 2px 8px rgba(120, 80, 220, 0.12);
+            background: linear-gradient(90deg, #7b2ff2 0%, #fbc2eb 100%);
           }
-          .signin-link {
+          .signup-link {
             transition: color 0.2s;
           }
-          .signin-link:hover {
+          .signup-link:hover {
             color: #764ba2 !important;
             text-decoration: underline !important;
           }
         `}
       </style>
-      <div className="row w-100 justify-content-center">
-        <div className="col-12 col-md-7 col-lg-5 col-xl-4">
-          <div className="text-center">
-            <img
-              src={jamalBank}
-              alt="Jamal Bank Logo"
-              className="signin-logo"
-              style={{ width: 90, height: 90, objectFit: 'cover' }}
-            />
+      <div className="signup-card p-4" style={{ width: 380, maxWidth: "95%" }}>
+        <div className="text-center mb-4">
+          <img
+            src={jamalBank}
+            alt="Jamal Bank Logo"
+            className="logo-bounce"
+            style={{
+              width: 70,
+              borderRadius: "50%",
+              boxShadow: "0 4px 16px rgba(123,47,242,0.15)"
+            }}
+          />
+          <h2 className="mt-3 mb-1" style={{ fontWeight: 700, color: "#7b2ff2" }}>
+            JamalSecureBank
+          </h2>
+          <div style={{ color: "#764ba2", fontWeight: 500, fontSize: 18 }}>
+            Welcome Back! Please sign in.
           </div>
-          <div className="signin-card p-4 mt-2">
-            <div className="text-center mb-3">
-              <h2 className="fw-bold mb-1" style={{ letterSpacing: 1 }}>
-                <i className="fas fa-university me-2 text-primary"></i>
-                SecureBank
-              </h2>
-              <p className="text-muted mb-0" style={{ fontSize: '1.1rem' }}>
-                Welcome Back! Please sign in.
-              </p>
-            </div>
-            {message && (
-              <div
-                className={`alert ${message.includes('successful') ? 'alert-success' : 'alert-danger'} alert-dismissible fade show`}
-                role="alert"
-                style={{ animation: 'bgFadeIn 0.5s' }}
-              >
-                {message}
-              </div>
-            )}
-            {/* Fingerprint login button if enabled */}
-            {fingerprintEnabled && (
-              <button
-                className="btn btn-outline-success w-100 mb-3 signin-btn-animated"
-                onClick={handleFingerprintLogin}
-                disabled={isLoading}
-                style={{ animation: 'cardSlideUp 0.7s 0.2s backwards' }}
-              >
-                <i className="fas fa-fingerprint me-2"></i>
-                Login with Fingerprint
-              </button>
-            )}
-            <Formik
-              initialValues={{
-                email: '',
-                password: ''
-              }}
-              validationSchema={validationSchema}
-              onSubmit={handleSubmit}
-            >
-              {({ isValid, dirty }) => (
-                <Form>
-                  {showEmail && (
-                    <div className="mb-3">
-                      <label htmlFor="email" className="form-label fw-semibold">Email Address</label>
-                      <Field
-                        type="email"
-                        name="email"
-                        className="form-control form-control-lg"
-                        placeholder="Enter your email address"
-                        autoComplete="username"
-                      />
-                      <ErrorMessage name="email" component="div" className="text-danger small mt-1" />
-                    </div>
-                  )}
-                  <div className="mb-3">
-                    <label htmlFor="password" className="form-label fw-semibold">Password</label>
-                    <Field
-                      type="password"
-                      name="password"
-                      className="form-control form-control-lg"
-                      placeholder="Enter your password"
-                      autoComplete="current-password"
-                    />
-                    <ErrorMessage name="password" component="div" className="text-danger small mt-1" />
-                  </div>
-                  <div className="mb-3 form-check">
-                    <input type="checkbox" className="form-check-input" id="rememberMe" />
-                    <label className="form-check-label" htmlFor="rememberMe">
-                      Remember me
-                    </label>
-                  </div>
-                  <button
-                    type="submit"
-                    className="btn btn-primary w-100 py-2 signin-btn-animated"
-                    disabled={!isValid || !dirty || isLoading}
-                    style={{ fontWeight: 600, fontSize: '1.1rem', letterSpacing: 0.5 }}
-                  >
-                    {isLoading ? (
-                      <>
-                        <span className="spinner-border spinner-border-sm me-2" role="status"></span>
-                        Signing In...
-                      </>
-                    ) : (
-                      'Sign In'
-                    )}
-                  </button>
-                  {!showEmail && (
-                    <button
-                      type="button"
-                      className="btn btn-link w-100 mt-2 signin-link"
-                      onClick={() => setShowEmail(true)}
-                    >
-                      <i className="fas fa-user me-2"></i>
-                      Sign in with another account
-                    </button>
-                  )}
-                </Form>
+        </div>
+        {message && (
+          <div
+            className={`alert ${message.includes("successful") ? "alert-success" : "alert-danger"} alert-dismissible fade show`}
+            role="alert"
+            style={{ animation: "fadeInUp 0.6s" }}
+          >
+            {message}
+          </div>
+        )}
+        {fingerprintEnabled && (
+          <button
+            className="btn btn-outline-success w-100 mb-3 btn-animated"
+            onClick={handleFingerprintLogin}
+            disabled={isLoading}
+            style={{ animation: 'fadeInUp 0.7s 0.2s backwards' }}
+          >
+            <i className="fas fa-fingerprint me-2"></i>
+            Login with Fingerprint
+          </button>
+        )}
+        <Formik
+          initialValues={{
+            email: '',
+            password: ''
+          }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({ isValid, dirty }) => (
+            <Form>
+              {showEmail && (
+                <div className="form-floating mb-3">
+                  <Field
+                    type="email"
+                    name="email"
+                    className="form-control"
+                    id="email"
+                    placeholder="Email Address"
+                    autoComplete="username"
+                  />
+                  <label htmlFor="email">Email Address</label>
+                  <ErrorMessage name="email" component="div" className="text-danger small mt-1" />
+                </div>
               )}
-            </Formik>
-            <div className="text-center mt-4">
-              <small className="text-muted">
-                Don't have an account?
-                <a href="/signup" className="signin-link ms-1">Sign Up</a>
-              </small>
-              <br />
-              <small className="text-muted">
-                <a href="#" className="signin-link">Forgot Password?</a>
-              </small>
-            </div>
-          </div>
+              <div className="form-floating mb-3">
+                <Field
+                  type="password"
+                  name="password"
+                  className="form-control"
+                  id="password"
+                  placeholder="Password"
+                  autoComplete="current-password"
+                />
+                <label htmlFor="password">Password</label>
+                <ErrorMessage name="password" component="div" className="text-danger small mt-1" />
+              </div>
+              <div className="mb-3 form-check">
+                <input type="checkbox" className="form-check-input" id="rememberMe" />
+                <label className="form-check-label" htmlFor="rememberMe">
+                  Remember me
+                </label>
+              </div>
+              <button
+                type="submit"
+                className="btn btn-animated btn-gradient w-100 py-2 mb-2"
+                style={{
+                  background: "linear-gradient(90deg, #7b2ff2 0%, #fbc2eb 100%)",
+                  color: "#fff",
+                  fontWeight: 600,
+                  fontSize: 18,
+                  letterSpacing: 1
+                }}
+                disabled={!isValid || !dirty || isLoading}
+              >
+                {isLoading ? (
+                  <>
+                    <span className="spinner-border spinner-border-sm me-2" role="status"></span>
+                    Signing In...
+                  </>
+                ) : (
+                  "Sign In"
+                )}
+              </button>
+              {!showEmail && (
+                <button
+                  type="button"
+                  className="btn btn-link w-100 mt-2 signup-link"
+                  onClick={() => setShowEmail(true)}
+                >
+                  <i className="fas fa-user me-2"></i>
+                  Sign in with another account
+                </button>
+              )}
+            </Form>
+          )}
+        </Formik>
+        <div className="text-center mt-3">
+          <small className="text-muted">
+            Don't have an account?
+            <a
+              href="/signup"
+              className="text-decoration-none ms-1"
+              style={{
+                color: "#7b2ff2",
+                fontWeight: 600,
+                transition: "color 0.2s"
+              }}
+              onMouseOver={e => (e.target.style.color = "#764ba2")}
+              onMouseOut={e => (e.target.style.color = "#7b2ff2")}
+            >
+              Sign Up
+            </a>
+          </small>
+          <br />
+          <small className="text-muted">
+            <a href="#" className="signup-link">Forgot Password?</a>
+          </small>
         </div>
       </div>
     </div>
