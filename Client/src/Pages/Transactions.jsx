@@ -17,7 +17,7 @@ const Transactions = () => {
   const fetchTransactions = async () => {
     try {
       const token = localStorage.getItem('token');
-  const response = await axios.get('https://full-bank-app-x470.onrender.com/api/banking/transactions', {
+  const response = await axios.get('https://full-bank-app-1.onrender.com/api/banking/transactions', {
         headers: { Authorization: `Bearer ${token}` }
       });
       setTransactions(response.data.transactions);

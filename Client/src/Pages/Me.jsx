@@ -133,7 +133,7 @@ const Me = () => {
                       reader.onloadend = async () => {
                         try {
                           const token = localStorage.getItem('token');
-                          const res = await fetch('https://full-bank-app-x470.onrender.com/api/auth/profile-image', {
+                          const res = await fetch('https://full-bank-app-1.onrender.com/api/auth/profile-image', {
                             method: 'PUT',
                             headers: {
                               'Content-Type': 'application/json',
@@ -202,7 +202,7 @@ const Me = () => {
                   setNotifMsg('');
                   try {
                     const token = localStorage.getItem('token');
-                    const res = await fetch('https://full-bank-app-x470.onrender.com/api/auth/notification-prefs', {
+                    const res = await fetch('https://full-bank-app-1.onrender.com/api/auth/notification-prefs', {
                       headers: { 'Authorization': `Bearer ${token}` }
                     });
                     const data = await res.json();
@@ -214,7 +214,7 @@ const Me = () => {
                   setAppSettingsMsg('');
                   try {
                     const token = localStorage.getItem('token');
-                    const res = await fetch('https://full-bank-app-x470.onrender.com/api/auth/app-settings', {
+                    const res = await fetch('https://full-bank-app-1.onrender.com/api/auth/app-settings', {
                       headers: { 'Authorization': `Bearer ${token}` }
                     });
                     const data = await res.json();
@@ -232,7 +232,7 @@ const Me = () => {
                   setSessionsMsg('');
                   try {
                     const token = localStorage.getItem('token');
-                    const res = await fetch('https://full-bank-app-x470.onrender.com/api/auth/sessions', {
+                    const res = await fetch('https://full-bank-app-1.onrender.com/api/auth/sessions', {
                       headers: { 'Authorization': `Bearer ${token}` }
                     });
                     const data = await res.json();
@@ -244,7 +244,7 @@ const Me = () => {
                   setDevicesMsg('');
                   try {
                     const token = localStorage.getItem('token');
-                    const res = await fetch('https://full-bank-app-x470.onrender.com/api/auth/devices', {
+                    const res = await fetch('https://full-bank-app-1.onrender.com/api/auth/devices', {
                       headers: { 'Authorization': `Bearer ${token}` }
                     });
                     const data = await res.json();

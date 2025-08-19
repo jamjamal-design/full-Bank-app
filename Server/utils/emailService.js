@@ -2,12 +2,22 @@ const nodemailer = require('nodemailer');
 require('dotenv').config();
 
 
+
 // Create transporter
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS
+    }
+});
+
+// Verify transporter at startup
+transporter.verify(function(error, success) {
+    if (error) {
+        console.error('Nodemailer transporter error:', error);
+    } else {
+        console.log('Nodemailer transporter is ready');
     }
 });
 
@@ -78,5 +88,6 @@ const sendTransactionEmail = async (email, name, type, amount, description, bala
         console.error('Error sending transaction email:', error);
     }
 };
+
 
 module.exports = { sendWelcomeEmail, sendTransactionEmail };

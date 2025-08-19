@@ -36,7 +36,7 @@ const Signup = () => {
     try {
       console.log('Attempting to signup with:', { firstName: values.firstName, lastName: values.lastName, email: values.email });
       
-  const response = await axios.post('https://full-bank-app-x470.onrender.com/api/auth/signup', {
+  const response = await axios.post('https://full-bank-app-1.onrender.com/api/auth/signup', {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,

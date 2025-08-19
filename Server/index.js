@@ -2,7 +2,14 @@ const express = require('express')
 const app = express ()
 require('dotenv').config()
 const cors = require('cors')
-app.use(cors())
+app.use(cors({
+    origin: [
+        'http://localhost:3000',
+        'http://localhost:5173',
+        'https://full-bank-app-bdsa.vercel.app/'
+    ],
+    credentials: true,
+}))
 const mongoURI = process.env.MONGO_URI
 const port = process.env.PORT || 8080
 const mongoose = require('mongoose')
