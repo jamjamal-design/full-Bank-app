@@ -15,10 +15,10 @@ const sendWelcomeEmail = async (email, firstName, accountNumber) => {
     const mailOptions = {
         from: process.env.EMAIL_USER,
         to: email,
-        subject: 'Welcome to JamalSecureBank - Account Created Successfully!',
+        subject: 'Welcome to Jamal Bank - Account Created Successfully!',
         html: `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-                <h2 style="color: #007bff; text-align: center;">Welcome to SecureBank!</h2>
+                <h2 style="color: #007bff; text-align: center;">Welcome to Jamal Bank!</h2>
                 <p>Dear ${firstName},</p>
                 <p>Congratulations! Your bank account has been successfully created.</p>
                 <div style="background-color: #f8f9fa; padding: 15px; border-radius: 5px; margin: 20px 0;">
@@ -33,7 +33,7 @@ const sendWelcomeEmail = async (email, firstName, accountNumber) => {
                     <li>View your transaction history</li>
                 </ul>
                 <p>Please keep your account number safe and secure.</p>
-                <p>Thank you for choosing SecureBank!</p>
+                <p>Thank you for choosing Jamal Bank!</p>
                 <hr style="margin: 30px 0; border: none; border-top: 1px solid #ddd;">
                 <p style="font-size: 12px; color: #666; text-align: center;">
                     This is an automated message. Please do not reply to this email.

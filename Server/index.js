@@ -28,7 +28,7 @@ mongoose.connect(mongoURI)
 
 
 app.get('/', (req, res) => {
-    res.json({ message: 'JamalSecureBank API is running!' });
+    res.json({ message: 'Jamal Bank API is running!' });
 });
 
 app.listen(port, ()=>{

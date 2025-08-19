@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
 import jamalBank from '../../image/jamalBank.png';
+import { Link } from 'react-router-dom';
 
 const Signin = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -151,7 +152,7 @@ const Signin = () => {
             }}
           />
           <h2 className="mt-3 mb-1" style={{ fontWeight: 700, color: "#7b2ff2" }}>
-            JamalSecureBank
+            Jamal Bank
           </h2>
           <div style={{ color: "#764ba2", fontWeight: 500, fontSize: 18 }}>
             Welcome Back! Please sign in.
@@ -256,8 +257,8 @@ const Signin = () => {
         <div className="text-center mt-3">
           <small className="text-muted">
             Don't have an account?
-            <a
-              href="/signup"
+            <Link
+              to="/signup"
               className="text-decoration-none ms-1"
               style={{
                 color: "#7b2ff2",
@@ -268,11 +269,11 @@ const Signin = () => {
               onMouseOut={e => (e.target.style.color = "#7b2ff2")}
             >
               Sign Up
-            </a>
+            </Link>
           </small>
           <br />
           <small className="text-muted">
-            <a href="#" className="signup-link">Forgot Password?</a>
+            <Link to="#" className="signup-link">Forgot Password?</Link>
           </small>
         </div>
       </div>

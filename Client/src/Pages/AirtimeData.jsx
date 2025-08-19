@@ -13,8 +13,8 @@ const AirtimeData = () => {
   useEffect(() => {
     // Fetch transaction history (stub)
     setHistory([
-      { type: 'airtime', amount: 500, phone: '08012345678', date: '2025-08-10' },
-      { type: 'data', amount: 1000, phone: '08098765432', date: '2025-08-09' }
+      {  date: '2025-08-10' , amount: 50000, phone: '09013058465',type: 'airtime' },
+      {  date: '2025-08-09' , amount: 10000, phone: '08142315774',type: 'data' }
     ]);
   }, []);
 

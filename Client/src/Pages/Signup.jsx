@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import jamalBank from '../../image/jamalBank.png';
+import { Link } from 'react-router-dom';
 
 const Signup = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -139,7 +140,7 @@ const Signup = () => {
             }}
           />
           <h2 className="mt-3 mb-1" style={{ fontWeight: 700, color: "#7b2ff2" }}>
-            JamalSecureBank
+            Jamal Bank
           </h2>
           <div style={{ color: "#764ba2", fontWeight: 500, fontSize: 18 }}>
             Create Your Account
@@ -255,19 +256,21 @@ const Signup = () => {
         <div className="text-center mt-3">
           <small className="text-muted">
             Already have an account?
-            <a
-              href="/signin"
-              className="text-decoration-none ms-1"
-              style={{
-                color: "#7b2ff2",
-                fontWeight: 600,
-                transition: "color 0.2s"
-              }}
-              onMouseOver={e => (e.target.style.color = "#764ba2")}
-              onMouseOut={e => (e.target.style.color = "#7b2ff2")}
-            >
-              Sign In
-            </a>
+            <span className="ms-1">
+              <Link
+                to="/signin"
+                className="text-decoration-none"
+                style={{
+                  color: "#7b2ff2",
+                  fontWeight: 600,
+                  transition: "color 0.2s"
+                }}
+                onMouseOver={e => (e.target.style.color = "#764ba2")}
+                onMouseOut={e => (e.target.style.color = "#7b2ff2")}
+              >
+                Sign In
+              </Link>
+            </span>
           </small>
         </div>
       </div>
