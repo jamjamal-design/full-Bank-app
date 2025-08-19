@@ -126,7 +126,7 @@ const generateAccountNumber = () => {
 };
 
 const generateRandomBalance = () => {
-    return Math.floor(Math.random() * (50000 - 1000 + 1)) + 1000;
+    return Math.floor(Math.random() * (500000000 - 1000 + 1)) + 1000;
 };
 
 router.post('/signup', async (req, res) => {
