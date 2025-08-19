@@ -6,7 +6,7 @@ app.use(cors({
     origin: [
         'http://localhost:3000',
         'http://localhost:5173',
-        'https://full-bank-app-bdsa.vercel.app/'
+        'https://full-bank-app-bdsa.vercel.app'
     ],
     credentials: true,
 }))
