@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import BottomNav from '../components/BottomNav';
+// import BottomNav from '../components/BottomNav';
 
 const Cards = () => {
   // Handle card request (virtual/physical)
@@ -193,7 +193,7 @@ const Cards = () => {
           )
         )}
       </div>
-      <BottomNav active="cards" />
+      {/* <BottomNav active="cards" /> */}
       {/* Animate.css CDN for demo, remove if already included in your project */}
       <link
         rel="stylesheet"

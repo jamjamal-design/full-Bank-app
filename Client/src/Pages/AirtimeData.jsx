@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import BottomNav from '../components/BottomNav';
+// import BottomNav from '../components/BottomNav';
 
 const AirtimeData = () => {
   const [type, setType] = useState('airtime');
@@ -146,7 +146,7 @@ const AirtimeData = () => {
           </div>
         </div>
       </div>
-      <BottomNav active="airtime" />
+      {/* <BottomNav active="airtime" /> */}
       {/* Animate.css CDN for demo: */}
       <link
         rel="stylesheet"
